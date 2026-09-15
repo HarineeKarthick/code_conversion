@@ -6,6 +6,7 @@ Created on Thu Dec 24 12:25:24 2020
 @author: harinee
 """
 
+import os
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image,ImageOps
@@ -156,8 +157,12 @@ root.geometry('700x700')
 C = Canvas(root, bg ="lightgreen", 
            height = 700, width = 700)  #making window to lightgreen color
 
-img = Image.open('/home/harinee/Desktop/logo.jpg') #setting "logo.jpg" as background 
-img1= img.resize((700,700), Image.ANTIALIAS) #resizing logo.jpg to 700x700
+# Load the background image from the assets folder next to this script
+assets_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+img = Image.open(os.path.join(assets_dir, "logo.jpg")) #setting "logo.jpg" as background 
+# Pillow 10+ removed ANTIALIAS; LANCZOS is the equivalent resample filter
+resample = getattr(Image, "LANCZOS", Image.ANTIALIAS)
+img1= img.resize((700,700), resample) #resizing logo.jpg to 700x700
 img1 = ImageTk.PhotoImage(img1) 
 panel = Label(root, image = img1)
 panel.image = img1
