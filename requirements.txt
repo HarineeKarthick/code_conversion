@@ -1,0 +1,4 @@
+# Pillow 9.5.0 is the last release that still provides Image.ANTIALIAS, which
+# code_conversion.py uses when resizing the background logo. Pillow >= 10.0
+# removed that constant. Pinning here keeps the app runnable without editing it.
+Pillow==9.5.0
